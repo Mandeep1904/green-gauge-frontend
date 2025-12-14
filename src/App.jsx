@@ -4,7 +4,7 @@ import About from "./pages/About";
 import Products from "./pages/Products";
 import "./styles/global.css";
 
-export default function App() {
+function App() {
   return (
     <Router>
       <Routes>
@@ -15,3 +15,5 @@ export default function App() {
     </Router>
   );
 }
+
+export default App;
