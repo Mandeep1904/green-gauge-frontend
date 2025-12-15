@@ -1,4 +1,13 @@
 function ProductCards({ products }) {
+  // Helper function to get currency symbol based on URL
+  const getCurrencySymbol = (url) => {
+    if (url.includes('amazon.com')) return '$';
+    if (url.includes('amazon.in') || url.includes('amzn.in')) return '₹';
+    if (url.includes('amazon.co.uk')) return '£';
+    if (url.includes('amazon.de') || url.includes('amazon.fr')) return '€';
+    return '₹'; // default
+  };
+
   return (
     <div className="grid grid-cols-1 min-[500px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
       {products.map((p) => (
@@ -38,13 +47,13 @@ function ProductCards({ products }) {
 
             {/* PRICE - PUSHED TO BOTTOM */}
             <div className="mt-auto pt-3 border-t border-zinc-800">
-              {p.price === null ? (
+              {p.price === null || !p.available ? (
                 <span className="text-base font-bold text-red-500">
                   Unavailable
                 </span>
               ) : p.price != null ? (
                 <span className="text-2xl font-bold text-green-500">
-                  ₹{p.price}
+                  {getCurrencySymbol(p.url)}{p.price}
                 </span>
               ) : (
                 <span className="text-zinc-500">—</span>

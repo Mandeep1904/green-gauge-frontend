@@ -1,4 +1,13 @@
 function ProductTable({ products }) {
+  // Helper function to get currency symbol based on URL
+  const getCurrencySymbol = (url) => {
+    if (url.includes('amazon.com')) return '$';
+    if (url.includes('amazon.in') || url.includes('amzn.in')) return '₹';
+    if (url.includes('amazon.co.uk')) return '£';
+    if (url.includes('amazon.de') || url.includes('amazon.fr')) return '€';
+    return '₹'; // default
+  };
+
   return (
     <div>
       {/* SCROLL HINT FOR MOBILE */}
@@ -62,13 +71,13 @@ function ProductTable({ products }) {
 
                   {/* PRICE */}
                   <td className="px-4 sm:px-6 py-4 text-right">
-                    {p.price === null ? (
+                    {p.price === null || !p.available ? (
                       <span className="text-sm font-semibold text-red-500">
                         Unavailable
                       </span>
                     ) : p.price != null ? (
                       <span className="text-base sm:text-lg font-bold text-green-500">
-                        ₹{p.price}
+                        {getCurrencySymbol(p.url)}{p.price}
                       </span>
                     ) : (
                       <span className="text-zinc-500">—</span>
